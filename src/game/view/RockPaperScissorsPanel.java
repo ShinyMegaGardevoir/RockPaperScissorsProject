@@ -17,11 +17,14 @@ public class RockPaperScissorsPanel extends JPanel
 	private RockPaperScissorsAppController baseController;
 	private SpringLayout baseLayout;
 	private JLabel firstLabel;
-	private String resultsString;
+	
 	private JLabel resultsLabel;
 	private JButton rockButton;
 	private JButton paperButton;
 	private JButton scissorsButton;
+	private int wins;
+	private int losses;
+	private JLabel resultsString;
 	
 	public RockPaperScissorsPanel(RockPaperScissorsAppController baseController)
 	{
@@ -31,8 +34,13 @@ public class RockPaperScissorsPanel extends JPanel
 		paperButton = new JButton("Paper");
 		scissorsButton = new JButton("Scissors");
 		firstLabel = new JLabel("Rock, Paper, or Scissors?");
-		resultsString = new String("");
-		resultsLabel = new JLabel(resultsString);
+		
+		resultsLabel = new JLabel("");
+		
+		resultsString = new JLabel("Wins: " + wins + " Losses: " + losses);
+
+		
+		
 		
 		
 		
@@ -53,10 +61,20 @@ public class RockPaperScissorsPanel extends JPanel
 		this.add(firstLabel);
 		this.add(resultsLabel);
 		this.setSize(500,400);
+		
+		
+		
+		
+		add(resultsString);
 	}
 	
 	private void setupLayout()
 	{
+		baseLayout.putConstraint(SpringLayout.WEST, firstLabel, 152, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, resultsLabel, 42, SpringLayout.SOUTH, rockButton);
+		baseLayout.putConstraint(SpringLayout.EAST, resultsLabel, -144, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.WEST, resultsString, 37, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, resultsString, -21, SpringLayout.SOUTH, this);
 		baseLayout.putConstraint(SpringLayout.NORTH, scissorsButton, 35, SpringLayout.SOUTH, firstLabel);
 		baseLayout.putConstraint(SpringLayout.SOUTH, firstLabel, -35, SpringLayout.NORTH, rockButton);
 		baseLayout.putConstraint(SpringLayout.NORTH, rockButton, 166, SpringLayout.NORTH, this);
@@ -64,11 +82,9 @@ public class RockPaperScissorsPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.NORTH, paperButton, 0, SpringLayout.NORTH, rockButton);
 		baseLayout.putConstraint(SpringLayout.WEST, paperButton, 26, SpringLayout.EAST, rockButton);
 		baseLayout.putConstraint(SpringLayout.WEST, scissorsButton, 294, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.WEST, firstLabel, 0, SpringLayout.WEST, resultsLabel);
-		baseLayout.putConstraint(SpringLayout.NORTH, resultsLabel, 46, SpringLayout.SOUTH, rockButton);
-		baseLayout.putConstraint(SpringLayout.WEST, resultsLabel, 152, SpringLayout.WEST, this);
 		resultsLabel.setFont(new Font("Tahoma", Font.PLAIN, 27));
 		firstLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		resultsString.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		
 	}
@@ -80,26 +96,31 @@ public class RockPaperScissorsPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				RockPaperScissors.buttonResults = 1;
-				RockPaperScissors.buttonResults = 3;
-				if(RockPaperScissors.tieChecker = false)
-				{
+				RockPaperScissors.computerResults = (int) (Math.random()* 4);
+				
+				if(RockPaperScissors.buttonResults != RockPaperScissors.computerResults)
 					if((RockPaperScissors.buttonResults == 1 && RockPaperScissors.computerResults == 2)
 						|| (RockPaperScissors.buttonResults == 2 && RockPaperScissors.computerResults == 3)
 						|| (RockPaperScissors.buttonResults == 3 && RockPaperScissors.computerResults == 1))
 					{
-						resultsString = "You Lose.";
+						resultsLabel.setText("You Lose.");
 						resultsLabel.setForeground(Color.RED);
+						losses++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 						
 					}
 					else
 					{
-						resultsString = "You Win!";
+						resultsLabel.setText("You Win!");
 						resultsLabel.setForeground(Color.GREEN);
+						wins++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 					}
-				}
+				
 				else
 				{
-					resultsString = "Tie";
+					resultsLabel.setText("Tie.");
+					resultsLabel.setForeground(Color.BLACK);
 				}
 
 			}
@@ -110,26 +131,30 @@ public class RockPaperScissorsPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				RockPaperScissors.buttonResults = 2;
-				RockPaperScissors.buttonResults = 3;
-				if(RockPaperScissors.tieChecker = false)
+				RockPaperScissors.computerResults = (int) (Math.random()* 4);
+				if(RockPaperScissors.buttonResults != RockPaperScissors.computerResults)
 				{
 					if((RockPaperScissors.buttonResults == 1 && RockPaperScissors.computerResults == 2)
 						|| (RockPaperScissors.buttonResults == 2 && RockPaperScissors.computerResults ==3)
 						|| (RockPaperScissors.buttonResults == 3 && RockPaperScissors.computerResults == 1))
 					{
-						resultsString = "You Lose.";
+						resultsLabel.setText("You Lose.");
 						resultsLabel.setForeground(Color.RED);
-						
+						losses++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 					}
 					else
 					{
-						resultsString = "You Win!";
+						resultsLabel.setText("You Win!");
 						resultsLabel.setForeground(Color.GREEN);
+						wins++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 					}
 				}
 				else
 				{
-					resultsString = "Tie";
+					resultsLabel.setText("Tie.");
+					resultsLabel.setForeground(Color.BLACK);
 				}
 
 				
@@ -141,29 +166,35 @@ public class RockPaperScissorsPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				RockPaperScissors.buttonResults = 3;
-				if(RockPaperScissors.tieChecker = false)
+				RockPaperScissors.computerResults = (int) (Math.random()* 4);
+				if(RockPaperScissors.buttonResults != RockPaperScissors.computerResults)
 				{
 					if((RockPaperScissors.buttonResults == 1 && RockPaperScissors.computerResults == 2)
 						|| (RockPaperScissors.buttonResults == 2 && RockPaperScissors.computerResults ==3)
 						|| (RockPaperScissors.buttonResults == 3 && RockPaperScissors.computerResults == 1))
 					{
-						resultsString = "You Lose.";
+						
+						resultsLabel.setText("You Lose.");
 						resultsLabel.setForeground(Color.RED);
+						losses++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 						
 					}
 					else
 					{
-						resultsString = "You Win!";
+						resultsLabel.setText("You Win!");
 						resultsLabel.setForeground(Color.GREEN);
+						wins++;
+						resultsString.setText("Wins: " + wins + " Losses: " + losses);
 					}
 				}
 				else
 				{
-					resultsString = "Tie";
+					resultsLabel.setText("Tie.");
+					resultsLabel.setForeground(Color.BLACK);
 				}
 			}
 		});
 		
 	}
-
 }

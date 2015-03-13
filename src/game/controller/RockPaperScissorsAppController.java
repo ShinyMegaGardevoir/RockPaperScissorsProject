@@ -8,7 +8,6 @@ public class RockPaperScissorsAppController
 	private RockPaperScissorsAppController dataController;
 	public RockPaperScissorsAppController()
 	{
-		RockPaperScissorsAppController dataController = new RockPaperScissorsAppController();
 		appFrame = new RockPaperScissorsFrame(this);
 		
 	}
